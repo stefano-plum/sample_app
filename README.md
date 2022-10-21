@@ -10,9 +10,9 @@ is available jointly under the MIT License and the Beerware License. See
 ## Getting started
 To get started with the app, clone the repo and then install the needed gems:
 ```
-$ gem install bundler -v 2.3.14
-$ bundle _2.3.14_ config set --local without 'production'
-$ bundle _2.3.14_ install
+$ gem install bundler
+$ bundle config set --local without 'production'
+$ bundle install
 ```
 Next, migrate the database:
 ```
