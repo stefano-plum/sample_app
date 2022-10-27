@@ -7,6 +7,9 @@ class User < ApplicationRecord
             format: { with: VALID_EMAIL_REGEX }, 
             uniqueness: true
     has_secure_password
+    validates :password, presence: true, length: { minimum: 6 }
+    # Preguntar porque en el tutorial no valida el password_confirmation, vale la pena validarlo?
+    validates :password_confirmation, presence: true, length: { minimum: 6 }
     
     def email_to_dwcase
         email.downcase!
