@@ -92,4 +92,11 @@ class UserTest < ActiveSupport::TestCase
     @user.save
     assert_equal mixed_case_username.downcase, @user.reload.username
   end
+
+  test "username should have no special characters" do
+    not_valid_username = "example@"
+    @user.username = not_valid_username
+    @user.save
+    assert_not @user.valid?
+  end
 end
