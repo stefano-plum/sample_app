@@ -15,9 +15,17 @@ class User < ApplicationRecord
     # Preguntar porque en el tutorial no valida el password_confirmation, vale la pena validarlo?
     validates :password_confirmation, presence: true, length: { minimum: 6 }
     
-    def to_dwcase
-        email.downcase!
-        username.downcase!
+    def User.digest(string)
+        cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : 
+                                                      BCrypt::Engine.cost
+        BCrypt::Password.create(string, cost: cost)
     end
+
+    private
+    
+        def to_dwcase
+            email.downcase!
+            username.downcase!
+        end
 end
 
