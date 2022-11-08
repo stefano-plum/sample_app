@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+
   def new
   end
 
@@ -6,7 +7,7 @@ class SessionsController < ApplicationController
     login_username = params[:session][:username].downcase
     login_password = params[:session][:password]
     user = User.where("username = :query OR email = :query", query: login_username).first
-    if user && user.authenticate(login_password)
+    if user&.authenticate(login_password)
       reset_session
       log_in user
       redirect_to user
@@ -18,4 +19,10 @@ class SessionsController < ApplicationController
 
   def destroy
   end
+
+  private
+
+    def user_params
+      params.require(:user).permit(:name, :email, :username, :password, :password_confirmation)
+    end
 end
