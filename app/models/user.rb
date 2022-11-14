@@ -28,9 +28,11 @@ class User < ApplicationRecord
         
     end
 
+    # Remembers a user in the database for use in persisten sessions.
     def remember
         self.remember_token = User.new_token
         update_attribute(:remember_digest, User.digest(remember_token))
+        remember_digest
     end
     
     def forget
@@ -44,7 +46,12 @@ class User < ApplicationRecord
             BCrypt::Password.new(self.remember_digest).is_password?(remember_token)
         end
     end
-    
+
+    # Returns a session token to prevent session hijacking
+    # We reuse the remember digest for convenience. 
+    def session_token
+        remember_digest || remember
+    end
     private
     
         def to_dwcase
