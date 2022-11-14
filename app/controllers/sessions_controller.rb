@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
     user = User.where("username = :query OR email = :query", query: login_username).first
     if user&.authenticate(login_password)
       reset_session
+      remember user
       log_in user
       redirect_to user
     else
