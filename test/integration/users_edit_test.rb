@@ -4,6 +4,7 @@ class UsersEditSetup < ActionDispatch::IntegrationTest
   
   def setup
     @user = users(:stefano)
+    log_in_as(@user)
   end
 
 end
