@@ -12,7 +12,7 @@ class User < ApplicationRecord
             uniqueness: true
     validates :username, presence: true, length: { maximum: 50 },
             format: { with: VALID_USERNAME_REGEX } ,uniqueness: true
-    validates :password, presence: true, length: { minimum: 6 }
+    validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
     class << self
 
