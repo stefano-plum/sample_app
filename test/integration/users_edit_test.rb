@@ -4,7 +4,6 @@ class UsersEditSetup < ActionDispatch::IntegrationTest
   
   def setup
     @user = users(:stefano)
-    log_in_as(@user)
   end
 
 end
@@ -12,6 +11,7 @@ end
 class UsersEditTemplate < UsersEditSetup
 
   test "render correct template" do 
+    log_in_as @user
     get edit_user_path(@user)
     assert_template 'users/edit' 
   end
@@ -21,6 +21,7 @@ end
 class UsersUnsuccessfulEdit < UsersEditSetup
 
   test "unsuccessful edit" do
+    log_in_as @user
     get edit_user_path(@user)
     patch user_path(@user), params: {
       user: {
@@ -44,6 +45,9 @@ class UsersSuccessfulEdit < UsersEditSetup
 
   test "successful edit" do
     get edit_user_path(@user)
+    log_in_as @user
+    assert_redirected_to edit_user_url @user
+    assert_not session[:forwarding_url]
     name = "Foo Bar"
     username = "foobar"
     email = "foo@bar.com"
