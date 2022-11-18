@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 
     VALID_EMAIL_REGEX =  /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-    VALID_USERNAME_REGEX = /\A[a-z0-9_]{4,16}\z/i
+    VALID_USERNAME_REGEX = /\A[a-z0-9_]/i
     attr_accessor :remember_token
     before_save :to_dwcase
     # Password
