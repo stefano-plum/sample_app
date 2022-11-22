@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 
     VALID_EMAIL_REGEX =  /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-    VALID_USERNAME_REGEX = /\A[a-z0-9_]{4,16}\z/i
+    VALID_USERNAME_REGEX = /\A[a-z0-9_-]{0,50}\z/i
     attr_accessor :remember_token
     before_save :to_dwcase
     # Password
@@ -12,7 +12,7 @@ class User < ApplicationRecord
             uniqueness: true
     validates :username, presence: true, length: { maximum: 50 },
             format: { with: VALID_USERNAME_REGEX } ,uniqueness: true
-    validates :password, presence: true, length: { minimum: 6 }
+    validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
     class << self
 
