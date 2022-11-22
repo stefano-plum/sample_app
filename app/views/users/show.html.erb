@@ -5,6 +5,9 @@
             <h1>
                 <%= gravatar_for @user%>
                 <%= @user.name.capitalize() %>
+                <% if @user.admin? %>
+                  (Admin)
+                <% end %>
             </h1>
         </section>
     </aside>

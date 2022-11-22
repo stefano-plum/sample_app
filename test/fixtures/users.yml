@@ -3,6 +3,7 @@ stefano:
   email: stefano@test.com
   username: stefanotest
   password_digest: <%= User.digest('password') %>
+  admin: true
 
 ezequiel:
   name: Ezequiel Test
