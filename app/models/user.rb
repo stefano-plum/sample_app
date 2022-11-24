@@ -1,19 +1,27 @@
 class User < ApplicationRecord
-
+    # Constants
     VALID_EMAIL_REGEX =  /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
     VALID_USERNAME_REGEX = /\A[a-z0-9_-]{0,50}\z/i
-    attr_accessor :remember_token
+    
+    # Before actions 
     before_save :to_dwcase
+    before_create :create_activation_digest
+
     # Password
     has_secure_password
+    
+    # Validations
     validates :name, presence: true, length: { maximum: 50 }
     validates :email, presence: true, length: { maximum: 255 }, 
-            format: { with: VALID_EMAIL_REGEX }, 
-            uniqueness: true
+    format: { with: VALID_EMAIL_REGEX }, 
+    uniqueness: true
     validates :username, presence: true, length: { maximum: 50 },
-            format: { with: VALID_USERNAME_REGEX } ,uniqueness: true
+    format: { with: VALID_USERNAME_REGEX } ,uniqueness: true
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+    
+    attr_accessor :remember_token, :activation_token
 
+    # Para que era esta clase?
     class << self
 
         def digest(string)
@@ -53,10 +61,15 @@ class User < ApplicationRecord
         remember_digest || remember
     end
     private
-    
+
         def to_dwcase
             self.email.downcase!
             self.username.downcase!
+        end
+
+        def create_activation_digest
+          self.activation_token = User.new_token
+          self.activation_digest = User.digest(activation_token)
         end
 end
 
