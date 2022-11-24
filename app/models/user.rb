@@ -47,12 +47,10 @@ class User < ApplicationRecord
         update_attribute(:remember_digest, nil)
     end
 
-    def authenticated?(remember_token)
-        if remember_digest.nil?
-            return false
-        else 
-            BCrypt::Password.new(self.remember_digest).is_password?(remember_token)
-        end
+    def authenticated?(attribute, token)
+      digest = self.send("#{attribute}_digest")
+      return false if digest.nil?
+      BCrypt::Password.new(digest).is_password?(token)
     end
 
     # Returns a session token to prevent session hijacking
