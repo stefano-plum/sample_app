@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     login_password = params[:session][:password]
     @user = User.where("username = :query OR email = :query", query: login_username).first
     if @user&.authenticate(login_password)
-      if user.activated?
+      if @user.activated?
         forwarding_url = session[:forwarding_url]
         reset_session
         params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
         message += "Check your email for the activation link."
         flash[:warning] = message
         redirect_to root_url
+      end
     else
       flash.now[:danger] = 'Invalid email or username and password combination' # Can be better
       render 'new', status: :unprocessable_entity

@@ -7,6 +7,11 @@ stefano:
   activated: true
   activated_at: Time.zone.now
 
+inactive: 
+  name: Inactive Test
+  email: inactive@test.com
+  username: inactiveTest
+  password_digest: <%= User.digest('password') %>
 ezequiel:
   name: Ezequiel Test
   email: ezequiel@test.com
