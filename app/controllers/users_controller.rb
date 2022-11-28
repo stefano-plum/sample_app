@@ -10,10 +10,10 @@ class UsersController < ApplicationController
   def show
     if !!params[:id]
       @user = User.find(params[:id])
-      # redirect_to root_url and return unless @user.authenticated?(:activation, @user.activation_token)
+      redirect_to root_url and return unless @user.activated?
     else
       @user = User.find_by(username: params[:username])
-      # redirect_to root_url and return unless @user.authenticated?(:activation, @user.activation_token)
+      redirect_to root_url and return unless @user.activated?
     end
   
   end

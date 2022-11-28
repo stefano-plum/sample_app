@@ -25,14 +25,11 @@ class UserIndexAdminTest < UserIndexAdmin
     assert_select 'div.pagination'
   end
 
-  test "index including pagination" do
+  test "index should include pagination" do
     log_in_as @admin
     get users_path
     assert_template 'users/index'
     assert_select 'div.pagination'
-    User.paginate(page: 1, per_page: 15).each do |u|
-      assert_select 'a[href=?]', user_path(u), text: u.username
-    end   
   end
 
   test "should have delete links" do
@@ -44,11 +41,11 @@ class UserIndexAdminTest < UserIndexAdmin
       end
     end
   end
-
+  
   test "should display only activated users" do
     User.paginate(page: 1, per_page: 15).first.toggle!(:activated)
     assigns(:users).each do |user| 
-      assert user.authenticated?(:activation, user.activation_token)
+      assert user.activated?
     end
   end 
 end

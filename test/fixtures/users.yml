@@ -12,6 +12,9 @@ inactive:
   email: inactive@test.com
   username: inactiveTest
   password_digest: <%= User.digest('password') %>
+  admin: false
+  activated: false
+  
 ezequiel:
   name: Ezequiel Test
   email: ezequiel@test.com
