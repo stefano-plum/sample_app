@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # Resources.
   resources :users
   resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
   # Search a username and returns the User page. 
   get '/:username', to: 'users#show'
 end
