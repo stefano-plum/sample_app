@@ -21,7 +21,6 @@ class User < ApplicationRecord
     
     attr_accessor :remember_token, :activation_token, :reset_token
 
-    # Para que era esta clase?
     class << self
 
         def digest(string)
