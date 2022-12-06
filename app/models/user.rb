@@ -1,10 +1,10 @@
-class User < ApplicationRecord
+  class User < ApplicationRecord
     # Constants
     VALID_EMAIL_REGEX =  /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
     VALID_USERNAME_REGEX = /\A[a-z0-9_-]{0,50}\z/i
 
     # Micropost association
-    has_many :microposts
+    has_many :microposts, dependent: :destroy
 
     # Before actions 
     before_save :to_dwcase
