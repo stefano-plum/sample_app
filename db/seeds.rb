@@ -16,7 +16,7 @@ User.create!(name: "Example User",
   last_name  = Faker::Name.last_name
   name = "#{first_name} #{last_name}"
   username = "#{first_name}#{last_name}"
-  puts username
+  puts "#{n+1} #{username}"
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
   User.create!(name: name,
