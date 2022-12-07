@@ -15,8 +15,8 @@ class UsersController < ApplicationController
       @user = User.find_by(username: params[:username])
       redirect_to root_url and return unless @user.activated?
     end
-    @micropost = @user.microposts.paginate(page: params[:page])
-  
+    @micropost = @user.microposts.paginate(page: params[:page], per_page: 15)
+
   end
 
   def new
