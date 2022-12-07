@@ -14,8 +14,9 @@ User.create!(name: "Example User",
   Faker::Config.locale = :en
   first_name = Faker::Name.first_name
   last_name  = Faker::Name.last_name
-  name = "#{first_name} #{last_name}"
   username = "#{first_name}#{last_name}"
+  username.gsub("'", "")if username.include? "'"
+  name = "#{first_name} #{last_name}"
   puts "#{n+1} #{username}"
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -26,4 +27,10 @@ User.create!(name: "Example User",
                password_confirmation: password,
                activated: true,
                activated_at: Time.zone.now)
+end
+
+users = User.order(:created_at).take(6)
+50.times do
+  content = Faker::Lorem.sentence(word_count: 5)
+  users.each { |user| user.microposts.create!(content: content) }
 end
