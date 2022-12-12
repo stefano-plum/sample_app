@@ -12,9 +12,10 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   # Resources.
-  resources :users
+  resources :users 
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :microposts,          only: [:create, :destroy]
   # Search a username and returns the User page. 
   get '/:username', to: 'users#show'
 end
