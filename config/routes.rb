@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   resources :microposts,          only: [:create, :destroy]
   # Search a username and returns the User page. 
   get '/:username', to: 'users#show'
+  get "/microposts", to: "static_pages#home"
 end

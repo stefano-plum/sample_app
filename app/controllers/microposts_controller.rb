@@ -7,6 +7,7 @@ class MicropostsController < ApplicationController
       flash[:success]
       redirect_to root_path
     else
+      @feed_items = current_user.feed.paginate(page: params[:page], per_page: 15)
       render "static_pages/home", status: :unprocessable_entity
     end
   end
