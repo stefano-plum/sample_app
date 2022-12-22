@@ -36,14 +36,10 @@ class ValidLogin < UserLogin
 
 end
 
-class ValidLoginTest < ValidLogin
-
-  test "valid login" do
+class ValidLoginTest < ValidLogin  
+  test "redirected after login" do
     assert is_logged_in?
     assert_redirected_to @user
-  end
-
-  test "redirected after login" do
     follow_redirect!
     assert_template 'users/show'
     assert_select "a[href=?]", login_path, count: 0

@@ -61,17 +61,6 @@ class UserLoggedInEdit < UsersControllerTest
     assert flash.empty?
     assert_redirected_to root_url
   end
-
-  test "should not allow the admin attribute to be edited via the web" do
-    log_in_as @user
-    assert_not @user.admin?
-    patch user_path @user, params: {
-      user: {
-        admin: 1
-      }
-    }
-    assert_not @user.admin?
-  end
 end
 
 class UserNotLoggedInDestroy < UsersControllerTest
