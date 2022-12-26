@@ -8,6 +8,7 @@
     has_many :active_relationships, class_name: "Relationship",
                                     foreign_key: "follower_id",
                                     dependent: :destroy
+    has_many :following, through: :active_relationships, source: :followed
     # Before actions 
     before_save :to_dwcase
     before_create :create_activation_digest
@@ -37,7 +38,6 @@
         def new_token
             SecureRandom.urlsafe_base64
         end
-        
     end
 
     # Remembers a user in the database for use in persisten sessions.
@@ -88,6 +88,21 @@
   
     def feed 
       Micropost.where("user_id = ?", id)
+    end
+    
+    # Follows an user.
+    def follow(other_user)
+      following << other_user unless self == other_user
+    end
+
+    # Unfollows an user.
+    def unfollow(other_user)
+      following.delete(other_user)
+    end
+
+    # Checks if the current user is following the other_user.
+    def following?(other_user)
+      following.include?(other_user)
     end
 
     private
