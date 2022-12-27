@@ -1,1 +1,15 @@
-# empty
+one:
+  follower: ezequiel
+  followed: stefano
+
+two:
+  follower: julian
+  followed: stefano
+
+three:
+  follower: ezequiel
+  followed: julian
+
+four:
+  follower: stefano
+  followed: julian

@@ -113,6 +113,7 @@ class UserTest < ActiveSupport::TestCase
     ezequiel = users :ezequiel
     assert_not stefano.following? ezequiel
     stefano.follow ezequiel
+    assert ezequiel.followers.include? stefano
     assert stefano.following? ezequiel
     stefano.unfollow ezequiel
     assert_not stefano.following? ezequiel
