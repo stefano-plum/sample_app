@@ -1,12 +1,12 @@
 class MicropostsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
-  before_action :correct_user, only: :destroy
+  before_action :correct_user,   only: :destroy
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
     @micropost.image.attach(params[:micropost][:image])
     if @micropost.save
-      flash[:success]
+      flash[:success] = "Micropost created!"
       redirect_to root_path
     else
       @feed_items = current_user.feed.paginate(page: params[:page], per_page: 15)
