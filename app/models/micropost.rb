@@ -18,11 +18,13 @@ class Micropost < ApplicationRecord
   
   def like(user)
     likes.build(user_id: user.id)
+    self.save
   end
 
   def unlike(user)
     like = likes.find_by(user_id: user.id)
     likes.delete(like)
+    self.save
   end
 
   def liked?(user)
